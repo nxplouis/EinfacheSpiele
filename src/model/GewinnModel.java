@@ -6,7 +6,7 @@ public class GewinnModel {
 
     private int gesamtPunkte;
     private int spielerZahl;
-    private int comuterZahl;
+    private int computerZahl;
     private int rundenErgebnis;
 
     public GewinnModel() {
@@ -17,8 +17,8 @@ public class GewinnModel {
         return gesamtPunkte;
     }
 
-    public int getComuterZahl() {
-        return comuterZahl;
+    public int getComputerZahl() {
+        return computerZahl;
     }
 
     public int getRundenErgebnis() {
