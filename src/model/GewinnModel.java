@@ -8,6 +8,8 @@ public class GewinnModel {
     private static final int PUNKTE_TREFFER =20;
     private static final int PUNKTE_KNAPP = 5;
     private static final int PUNKTE_DANEBEN = -10;
+    private static final int GEWINN_GRENZE = 100;
+    private static final int VERLUST_GRENZE = 0;
 
     private int gesamtPunkte;
     private int spielerZahl;
@@ -48,5 +50,13 @@ public class GewinnModel {
             rundenErgebnis = PUNKTE_DANEBEN;
         }
         gesamtPunkte += rundenErgebnis;
+    }
+
+    public boolean hatGewonnen() {
+        return gesamtPunkte >= GEWINN_GRENZE;
+    }
+
+    public boolean hatVerloren() {
+        return gesamtPunkte <= VERLUST_GRENZE;
     }
 }
