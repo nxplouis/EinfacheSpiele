@@ -50,7 +50,7 @@ public class GewinnView extends JFrame {
         anzeigePanel.add(erzeugeTitelLabel("Gesamtpunkte:"));
         anzeigePanel.add(ergebnisLabel);
         anzeigePanel.add(punkteLabel);
-        anzeigePanel.add(erzeugeTitelLabel("Deine Zahl;"));
+        anzeigePanel.add(erzeugeTitelLabel("Deine Zahl:"));
         anzeigePanel.add(erzeugeTitelLabel("Computer"));
 
         JPanel zahlenPanel = new JPanel(new GridLayout(1, 2, 20, 0));
@@ -62,13 +62,30 @@ public class GewinnView extends JFrame {
         buttonPanel.add(nochEinmalButton);
 
         add(anzeigePanel, BorderLayout.NORTH);
-        add(anzeigePanel, BorderLayout.CENTER);
-        add(anzeigePanel, BorderLayout.SOUTH);
+        add(zahlenPanel, BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.SOUTH);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(620, 360);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    public String getEingabe() {
+        String text = eingabeFeld.getText();
+        return text == null ? "" : text.trim();
+    }
+
+    public void zeigeRunde(GewinnModel model) {
+        computerFeld.setText(String.valueOf(model.getComputerZahl()));
+        punkteLabel.setText(String.valueOf(model.getGesamtPunkte()));
+        if(model.hatGewonnen()) {
+            ergebnisLabel.setText("Gewonnen");
+        } else if (model.hatVerloren()) {
+            ergebnisLabel.setText("Verloren");
+        } else {
+            ergebnisLabel.setText(String.format("%+d", model.getRundenErgebnis()));
+        }
     }
 
     private static JLabel erzeugeTitelLabel(String text) {
