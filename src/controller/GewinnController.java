@@ -19,16 +19,30 @@ public class GewinnController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e == null || istSpielVorbei()) {
+            return;
+        }
         if (GewinnView.EINGABE.equals(e.getActionCommand())) {
             spieleRunde();
+        } else if (GewinnView.NOCH_EINMAL.equals(e.getActionCommand())) {
+            view.leereRunde();
         }
     }
 
+    private boolean istSpielVorbei() {
+        return model.hatGewonnen() || model.hatVerloren();
+    }
+
+
     private void spieleRunde() {
-        int spielerZahl = Integer.parseInt(view.getEingabe());
-        model.berechneComputerZahl();
-        model.berechneRunde(spielerZahl);
-        view.zeigeRunde(model);
+        try {
+            int spielerZahl = Integer.parseInt(view.getEingabe());
+            model.berechneComputerZahl();
+            model.berechneRunde(spielerZahl);
+            view.zeigeRunde(model);
+        } catch (IllegalArgumentException ex) {
+            view.zeigeFehler("Ungültige Eingabe!");
+        }
     }
 
     public static void main(String[] args) {

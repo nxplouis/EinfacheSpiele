@@ -88,6 +88,21 @@ public class GewinnView extends JFrame {
         }
     }
 
+    public void zeigeFehler(String meldung) {
+        leereFelder(meldung);
+    }
+
+    public void leereRunde() {
+        leereFelder(HINWEIS);
+        eingabeFeld.requestFocusInWindow();
+    }
+
+    private void leereFelder(String ergebnisText) {
+        eingabeFeld.setText("");
+        computerFeld.setText("");
+        ergebnisLabel.setText(ergebnisText);
+    }
+
     private static JLabel erzeugeTitelLabel(String text) {
         return new JLabel(text, SwingConstants.CENTER);
     }
