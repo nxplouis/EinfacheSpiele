@@ -44,6 +44,7 @@ public class GewinnView extends JFrame {
         eingabeFeld.addActionListener(listener);
         nochEinmalButton.setActionCommand(NOCH_EINMAL);
         nochEinmalButton.addActionListener(listener);
+        nochEinmalButton.setEnabled(false);
 
         JPanel anzeigePanel = new JPanel(new GridLayout(3, 2, 8, 4));
         anzeigePanel.add(erzeugeTitelLabel("Rundenergebnis:"));
@@ -86,6 +87,8 @@ public class GewinnView extends JFrame {
         } else {
             ergebnisLabel.setText(String.format("%+d", model.getRundenErgebnis()));
         }
+        eingabeFeld.setEditable(false);
+        nochEinmalButton.setEnabled(!model.hatGewonnen() && !model.hatVerloren());
     }
 
     public void zeigeFehler(String meldung) {
@@ -94,6 +97,8 @@ public class GewinnView extends JFrame {
 
     public void leereRunde() {
         leereFelder(HINWEIS);
+        eingabeFeld.setEditable(true);
+        nochEinmalButton.setEnabled(false);
         eingabeFeld.requestFocusInWindow();
     }
 
