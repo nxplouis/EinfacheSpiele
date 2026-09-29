@@ -3,7 +3,6 @@ package controller;
 import model.GewinnModel;
 import view.GewinnView;
 
-import javax.swing.SwingUtilities;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -46,6 +45,6 @@ public class GewinnController implements ActionListener {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(GewinnController::new);
+        new GewinnController();
     }
 }
