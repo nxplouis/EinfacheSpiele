@@ -26,6 +26,9 @@ public class GewinnView extends JFrame {
     private static final String HINWEIS = "Tippe eine Zahl von 1 bis 9";
     private static final Font WERT_SCHRIFT = new Font(Font.SANS_SERIF, Font.BOLD, 18);
     private static final Font ZAHL_SCHRIFT = new Font(Font.SANS_SERIF, Font.BOLD, 40);
+    private static final Color GEWINN_FARBE = new Color(120, 220, 120);
+    private static final Color VERLUST_FARBE = new Color(240, 110, 110);
+    private static final Color NEUTRAL_FARBE = Color.WHITE;
 
     private final JLabel ergebnisLabel =  erzeugeWertLabel(HINWEIS);
     private final JLabel punkteLabel = erzeugeWertLabel("");
@@ -74,7 +77,10 @@ public class GewinnView extends JFrame {
 
     public String getEingabe() {
         String text = eingabeFeld.getText();
-        return text == null ? "" : text.trim();
+        if (text == null) {
+            return "";
+        }
+        return text.trim();
     }
 
     public void zeigeRunde(GewinnModel model) {
@@ -89,6 +95,11 @@ public class GewinnView extends JFrame {
         }
         eingabeFeld.setEditable(false);
         nochEinmalButton.setEnabled(!model.hatGewonnen() && !model.hatVerloren());
+        if (model.hatGewonnen() || model.getRundenErgebnis() > 0) {
+            setzeLabelFarbe(GEWINN_FARBE);
+        } else {
+            setzeLabelFarbe(VERLUST_FARBE);
+        }
     }
 
     public void zeigeFehler(String meldung) {
@@ -106,6 +117,12 @@ public class GewinnView extends JFrame {
         eingabeFeld.setText("");
         computerFeld.setText("");
         ergebnisLabel.setText(ergebnisText);
+        setzeLabelFarbe(NEUTRAL_FARBE);
+    }
+
+    private void setzeLabelFarbe(Color farbe) {
+        ergebnisLabel.setBackground(farbe);
+        punkteLabel.setBackground(farbe);
     }
 
     private static JLabel erzeugeTitelLabel(String text) {
@@ -116,7 +133,7 @@ public class GewinnView extends JFrame {
         JLabel label = new JLabel(text, SwingConstants.CENTER);
         label.setFont(WERT_SCHRIFT);
         label.setOpaque(true);
-        label.setBackground(Color.WHITE);
+        label.setBackground(NEUTRAL_FARBE);
         return label;
     }
 
